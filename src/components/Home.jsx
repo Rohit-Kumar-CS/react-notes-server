@@ -55,7 +55,7 @@ const Home = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)} />
 
-          <button onClick={createPaste} className="px-8 py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 shadow-lg transition duration-300">
+          <button onClick={createPaste} className="px-6 py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 shadow-lg transition duration-300">
             {
               pasteId ? "Update Paste" : "Create Paste"
             }

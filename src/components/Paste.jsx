@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { removePaste } from '../redux/pasteSlice'
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom'
 
 const Paste = () => {
 
@@ -21,7 +22,7 @@ const Paste = () => {
   return (
     <div className='p-4'>
       <input
-        className='border-2 border-gray-300 rounded-md p-4 w-full'
+        className='w-full px-4 py-3 rounded-xl bg-white border border-purple-200 shadow-md outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition'
         type="text"
         placeholder="Search pastes..."
         value={searchTerm}
@@ -30,43 +31,84 @@ const Paste = () => {
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
         {filteredPastes.map((paste) => (
-          <div key={paste._id} className='border-2 border-gray-300 rounded-md p-4'>
-            <h3 className='text-xl font-bold'>{paste.title}</h3>
-            <p className='text-gray-600'>{paste.content}</p>
-            <div>
-              <button className='bg-red-500 text-white p-2 rounded-md mt-2' onClick={() => handleRemove(paste._id)}>
-                Remove
-              </button>
-              <button className='bg-blue-500 text-white p-2 rounded-md mt-2 ml-2' >
 
-                <a href={`/?pasteId=${paste._id}`} className='text-white'>
-                  Edit
-                </a>
-              </button>
-              <button className='bg-green-500 text-white p-2 rounded-md mt-2 ml-2'
+
+          <div
+            key={paste._id}
+            className="bg-white rounded-3xl shadow-lg border border-purple-100 p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+          >
+            {/* Title */}
+            <h2 className="text-2xl font-bold text-gray-800 mb-3 break-words">
+              {paste.title}
+            </h2>
+
+            {/* Content */}
+            <p className="text-gray-600 whitespace-pre-wrap break-words line-clamp-4">
+              {paste.content}
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-wrap gap-3 mt-6">
+
+              {/* Remove */}
+              <button
+                onClick={() => handleRemove(paste._id)}
+                className="px-4 py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-red-500 to-pink-500 hover:scale-105 duration-300 shadow-md"
               >
-                <a href={`/pastes/${paste._id}`} className='text-white'>
-                  View
-                </a>
+                🗑 Remove
               </button>
 
-              <button className='bg-yellow-500 text-white p-2 rounded-md mt-2 ml-2' onClick={() => {
-                // Set the search params to the pasteId for copying
-                navigator.clipboard.writeText(paste.content);
-                toast.success('Paste content copied to clipboard!');
-              }}>
-                Copy
+              {/* Edit */}
+              <Link
+                to={`/?pasteId=${paste._id}`}
+                className="px-4 py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-blue-500 to-indigo-600 hover:scale-105 duration-300 shadow-md"
+              >
+                ✏ Edit
+              </Link>
+
+              {/* View */}
+              <Link
+                to={`/pastes/${paste._id}`}
+                className="px-4 py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-105 duration-300 shadow-md"
+              >
+                👁 View
+              </Link>
+
+              {/* Copy */}
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(paste.content);
+                  toast.success("Copied Successfully!");
+                }}
+                className="px-4 py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 hover:scale-105 duration-300 shadow-md"
+              >
+                📋 Copy
               </button>
-              <button className='bg-purple-500 text-white p-2 rounded-md mt-2 ml-2' onClick={() => {
-                // Set the search params to the pasteId for sharing
-                const shareLink = `${window.location.origin}/pastes/${paste._id}`;
-                navigator.clipboard.writeText(shareLink);
-                toast.success('Share link copied to clipboard!');
-              }}>
-                Share
+
+              {/* Share */}
+              <button
+                onClick={() => {
+                  const shareLink = `${window.location.origin}/pastes/${paste._id}`;
+                  navigator.clipboard.writeText(shareLink);
+                  toast.success("Share Link Copied!");
+                }}
+                className="px-4 py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 hover:scale-105 duration-300 shadow-md"
+              >
+                🔗 Share
               </button>
+
             </div>
-            <div className='text-gray-400 text-sm mt-2'>Created At: {new Date(paste.createdAt).toLocaleString()}</div>
+
+            {/* Footer */}
+            <div className="mt-6 pt-4 border-t border-gray-200 flex justify-between items-center">
+              <span className="text-gray-500 text-sm">
+                📅 {new Date(paste.createdAt).toLocaleString()}
+              </span>
+
+              <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">
+                Paste
+              </span>
+            </div>
           </div>
         ))}
       </div>

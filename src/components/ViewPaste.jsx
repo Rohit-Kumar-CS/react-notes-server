@@ -21,20 +21,15 @@ const ViewPaste = () => {
       <div className='flex flex-row items-center justify-between gap-4 mb-3 w-full'>
         <input type="text"
           placeholder='Search'
-          className='border-2 border-gray-300 rounded-md p-4 w-1/2'
+          className='w-1/2 px-4 py-3 rounded-xl bg-white border border-purple-200 shadow-md outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition'
           disabled
           value={title}
       />
 
-        {/* <button onClick={createPaste} className='bg-blue-500 text-white p-4 rounded-md '>
-          {
-            pasteId ? "Update Paste" : "Create Paste"
-          }
-        </button> */}
       </div>
       <div>
         <textarea
-          className='bg-gray-300 h-235 w-full border-2 border-gray-800 p-4 rounded-md'
+          className="w-full h-[700px] p-5 rounded-2xl bg-white border border-purple-200 shadow-lg resize-none outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
           value={value}
           disabled
          
